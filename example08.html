@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Pushpin:Event</title>
+    <meta charset="utf-8">
+    <style>body{padding:0;margin:0;background:#333;}h1{padding:0;margin:0;font-size:50%;color:white;}.mouse{font-size:50%;background: white;}</style>
+</head>
+<body>
+<h1>Pushpin : Event (Click, Mouseover...)</h1>
+<div id="myMap" style='position:relative;width:100%;height:370px;'></div>
+
+<div id="pushpinClick" class="mouse">click</div>
+<div id="pushpinMousedown" class="mouse">mousedown</div>
+<div id="pushpinMouseout" class="mouse">mouseout</div>
+<div id="pushpinMouseover" class="mouse">mouseover</div>
+<div id="pushpinMouseup" class="mouse">mouseup</div>
+
+
+<!-- [ EVENT Object ] https://msdn.microsoft.com/en-us/library/mt750279.aspx -->
+<script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=[***Your Map KEY***]' async defer></script>
+<script>
+function GetMap() {
+    let map = new Microsoft.Maps.Map('#myMap', {
+        center: new Microsoft.Maps.Location(47.6149, -122.1941),
+        zoom:15
+    });
+
+    //Create a pushpin.
+    let pushpin = new Microsoft.Maps.Pushpin(map.getCenter());
+    map.entities.push(pushpin); //Add pin to Map
+
+    //Point!!: Add mouse events to the pushpin.
+    Microsoft.Maps.Events.addHandler(pushpin, 'click', function () { highlight('pushpinClick'); });
+    Microsoft.Maps.Events.addHandler(pushpin, 'mousedown', function () { highlight('pushpinMousedown'); });
+    Microsoft.Maps.Events.addHandler(pushpin, 'mouseout', function () { highlight('pushpinMouseout'); });
+    Microsoft.Maps.Events.addHandler(pushpin, 'mouseover', function () { highlight('pushpinMouseover'); });
+    Microsoft.Maps.Events.addHandler(pushpin, 'mouseup', function () { highlight('pushpinMouseup'); });
+}
+
+function highlight(id) {
+    //Highlight the mouse event div to indicate that the event has fired.
+    document.getElementById(id).style.background = 'LightGreen';
+    //Remove the highlighting after a second.
+    setTimeout(function () { document.getElementById(id).style.background = 'white'; }, 1000);
+}
+</script>
+</body>
+</html>

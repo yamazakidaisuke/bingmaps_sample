@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Maps Event Check</title>
+<meta charset="utf-8" />
+<style>body{padding:0;margin:0;background:#333;}h1{padding:0;margin:0;font-size:50%;color:white;}.mouse{font-size:50%;background: white;}</style>
+</head>
+<body>
+<h1>Maps Event Check (Click,MouseOver...)</h1>
+<div id="myMap" style='position:relative;width:100%;height:280px;'></div>
+<div id="mapViewChangeStart" class="mouse">Map move Start</div>
+<div id="mapViewChange" class="mouse">Map move</div>
+<div id="mapViewChangEnd" class="mouse">Map move End</div>
+<div id="mapClick" class="mouse">Click</div>
+<div id="mapDblClick" class="mouse">DBL Click</div>
+<div id="mapRightClick" class="mouse">Right Click</div>
+<div id="mapMousedown" class="mouse">MouseDown</div>
+<div id="mapMouseout" class="mouse">MouseOut</div>
+<div id="mapMouseover" class="mouse">MouseOver</div>
+<div id="mapMouseup" class="mouse">MouseUp</div>
+<div id="mapMousewheel" class="mouse">Mousewheel</div>
+<div id="maptypechanged" class="mouse">Map type Change</div>
+
+
+<!-- [ EVENT Object ] https://msdn.microsoft.com/en-us/library/mt750279.aspx -->
+<script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=[***Your Map KEY***]' async defer></script>
+<script>
+    let map;
+    function GetMap() {
+        map = new Microsoft.Maps.Map('#myMap',{
+            center: new Microsoft.Maps.Location(47.6149, -122.1941), //Location center position
+        });
+
+        //Add view change events to the map.
+        Microsoft.Maps.Events.addHandler(map, 'viewchangestart', function () { highlight('mapViewChangeStart'); });
+        Microsoft.Maps.Events.addHandler(map, 'viewchange', function () { highlight('mapViewChange'); });
+        Microsoft.Maps.Events.addHandler(map, 'viewchangeend', function () { highlight('mapViewChangEnd'); });
+        //Add mouse events to the map.
+        Microsoft.Maps.Events.addHandler(map, 'click', function () { highlight('mapClick'); });
+        Microsoft.Maps.Events.addHandler(map, 'dblclick', function () { highlight('mapDblClick'); });
+        Microsoft.Maps.Events.addHandler(map, 'rightclick', function () { highlight('mapRightClick'); });
+        Microsoft.Maps.Events.addHandler(map, 'mousedown', function () { highlight('mapMousedown'); });
+        Microsoft.Maps.Events.addHandler(map, 'mouseout', function () { highlight('mapMouseout'); });
+        Microsoft.Maps.Events.addHandler(map, 'mouseover', function () { highlight('mapMouseover'); });
+        Microsoft.Maps.Events.addHandler(map, 'mouseup', function () { highlight('mapMouseup'); });
+        Microsoft.Maps.Events.addHandler(map, 'mousewheel', function () { highlight('mapMousewheel'); });
+        //Add addition map event handlers
+        Microsoft.Maps.Events.addHandler(map, 'maptypechanged', function () { highlight('maptypechanged'); });
+    }
+
+    //Event:ColorChange
+    function highlight(id) {
+        //Highlight the div to indicate that the event has fired.
+        document.getElementById(id).style.background = 'LightGreen';
+        //Remove the highlighting after a second.
+        setTimeout(function () { document.getElementById(id).style.background = 'white'; }, 1000);
+    }
+
+
+</script>
+</body>
+</html>

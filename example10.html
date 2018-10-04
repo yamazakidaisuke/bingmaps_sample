@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Infobox : basic</title>
+    <meta charset="utf-8">
+    <style>body{padding:0;margin:0;background:#333;}h1{padding:0;margin:0;font-size:50%;color:white;}</style>
+</head>
+<body>
+<h1>Infobox : basic</h1>
+<div id="myMap" style='position:relative;width:100%;height:450px;'></div>
+
+
+<!-- [ infobox Object ] https://msdn.microsoft.com/en-us/library/mt712658.aspx -->
+<script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=[***Your Map KEY***]' async defer></script>
+<script>
+//Maps Init
+function GetMap() {
+    let map = new Microsoft.Maps.Map('#myMap', {
+        center: new Microsoft.Maps.Location(47.6149, -122.1941),
+        zoom: 15
+    });
+
+    //Get MAP Infomation
+    let center = map.getCenter();
+
+    //infobox
+    let infobox = new Microsoft.Maps.Infobox(center, {
+        title: 'title',
+        description: 'description'
+    });
+    infobox.setMap(map); //Add infobox to Map
+}
+</script>
+</body>
+</html>

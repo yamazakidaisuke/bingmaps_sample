@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Get Maps Infomation</title>
+    <style>body{padding:0;margin:0;background:#333;}h1{padding:0;margin:0;font-size:50%;color:white;}.mouse,p{font-size:50%;background: white;margin:0}</style>
+</head>
+<body>
+
+
+<!-- MAP[START] -->
+<h1>Get Maps Infomation</h1>
+<p id='printoutPanel'></p>
+<div id="myMap" style='position:relative;width:100%;height:390px;'></div>
+<!-- MAP[END] -->
+
+
+<!-- [Map Class|Method] https://msdn.microsoft.com/en-us/library/mt712547.aspx -->
+<script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=[***Your Map KEY***]' async defer></script>
+<script>
+//BingMaps Init.
+function GetMap() {
+    const map = new Microsoft.Maps.Map('#myMap', {
+        center: new Microsoft.Maps.Location(47.6149, -122.1941),
+        mapTypeId: Microsoft.Maps.MapTypeId.load, //aerial,canvasDark,canvasLight,birdseye,grayscale,load,streetside
+        zoom: 8
+    });
+
+    //Get Map Infomation
+    let str =  `<strong>Map Height: </strong>${map.getHeight()} , <strong>Map center: </strong>${map.getCenter()}<br>
+                <strong>Map Width: </strong>${map.getWidth()} , <strong>Map bounds: </strong>${map.getBounds()}<br>
+                <strong>Map PageX: </strong>${map.getPageX()} , <strong>Map PageY: </strong>${map.getPageY()} ,
+                <strong>Map zoom level: </strong>${map.getZoom()} , <strong>Map type id: </strong>${map.getMapTypeId()}`;
+    document.getElementById('printoutPanel').innerHTML=str;
+}
+</script>
+
+
+
+</body>
+</html>

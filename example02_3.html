@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change display from event</title>
+    <style>body{padding:0;margin:0;background:#333;}h1{padding:0;margin:0;font-size:50%;color:white;}.mouse,p{font-size:50%;background: white;margin:0}h1,#move{margin-left:20px;padding: 5px;}</style>
+</head>
+<body>
+
+
+<!-- MAP[START] -->
+<h1>Change display from event<button id='move'>Change Button</button></h1>
+<div id="myMap" style='position:relative;width:100%;height:420px;'></div>
+<!-- MAP[END] -->
+
+
+
+<!-- [ MapTypeId ] https://msdn.microsoft.com/en-us/library/mt712700.aspx -->
+<script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=[***Your Map KEY***]' async defer></script>
+<script>
+    //Initialization processing
+    let map;
+    function GetMap() {
+        map = new Microsoft.Maps.Map('#myMap', {
+            center: new Microsoft.Maps.Location(47.6149, -122.1941), //Location center position
+            mapTypeId: Microsoft.Maps.MapTypeId.load, //Type: [load, aerial,canvasDark,canvasLight,birdseye,grayscale,streetside]
+            zoom: 8  //Zoom:1=zoomOut, 20=zoomUp[ 1~20 ]
+        });
+    }
+    //map.setView: Display change of map
+    document.getElementById("move").onclick = function (){
+        map.setView({
+            mapTypeId: Microsoft.Maps.MapTypeId.aerial,
+            center: new Microsoft.Maps.Location(35.027222, -111.0225),
+            zoom: 15
+        });
+    }
+</script>
+
+
+
+
+</body>
+</html>

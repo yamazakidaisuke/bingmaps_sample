@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Pushpin:Event</title>
+    <meta charset="utf-8">
+    <style>body{padding:0;margin:0;background:#333;}h1{padding:0;margin:0;font-size:50%;color:white;}</style>
+</head>
+<body>
+<h1>Pushpin:Event (Click, Mouseover...)</h1>
+<div id="myMap" style='position:relative;width:100%;height:450px;'></div>
+
+
+<!-- [ EVENT Object ] https://msdn.microsoft.com/en-us/library/mt750279.aspx -->
+<script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=[***Your Map KEY***]' async defer></script>
+<script>
+function GetMap() {
+    //Map:init
+    let map = new Microsoft.Maps.Map('#myMap', {
+        center: new Microsoft.Maps.Location(47.6149, -122.1941),
+        zoom: 15
+    });
+
+    //Pushpin:Colors
+    let defaultColor = 'blue';
+    let hoverColor = 'red';
+    let mouseDownColor = 'purple';
+
+    //Create a pushpin.
+    let pin = new Microsoft.Maps.Pushpin(map.getCenter(), {
+        color: defaultColor
+    });
+    map.entities.push(pin); //Add pin to Map
+
+    //Event:mouseover
+    Microsoft.Maps.Events.addHandler(pin, 'mouseover', function (e) {
+        e.target.setOptions({color: hoverColor});
+    });
+    //Event:mousedown
+    Microsoft.Maps.Events.addHandler(pin, 'mousedown', function (e) {
+        e.target.setOptions({color: mouseDownColor});
+    });
+    //Event:mouseout
+    Microsoft.Maps.Events.addHandler(pin, 'mouseout', function (e) {
+        e.target.setOptions({color: defaultColor});
+    });
+}
+</script>
+</body>
+</html>

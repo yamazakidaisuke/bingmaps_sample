@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Infobox:showPointer&actions</title>
+    <meta charset="utf-8">
+    <style>body{padding:0;margin:0;background:#333;}h1{padding:0;margin:0;font-size:50%;color:white;}</style>
+</head>
+<body>
+<h1>Infobox:showPointer & actions</h1>
+<div id="myMap" style='position:relative;width:100%;height:450px;'></div>
+
+
+<!-- [ infobox Object ] https://msdn.microsoft.com/en-us/library/mt712658.aspx -->
+<script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=[***Your Map KEY***]' async defer></script>
+<script>
+function GetMap() {
+    let map = new Microsoft.Maps.Map('#myMap', {
+        center: new Microsoft.Maps.Location(47.6149, -122.1941),
+        zoom: 15
+    });
+
+    //Get MAP Infomation
+    let center = map.getCenter();
+
+    //Infobox
+    let infobox = new Microsoft.Maps.Infobox(center, {
+        title: 'Microsoft',
+        description: 'This is the center of the map.',
+        showPointer: true,     //Pointer
+        showCloseButton: true, //CloseButton
+        //Event:Create
+        actions: [{
+            label: 'Handler1',
+            eventHandler: function () { //function
+                alert('Handler1');
+            }
+        }, {
+            label: 'Handler2',
+            eventHandler: function () { //function
+                alert('Handler2');
+            }
+        }]
+    });
+
+    //Assign the infobox to a map instance.
+    infobox.setMap(map); //Add infobox to Map
+}
+</script>
+</body>
+</html>

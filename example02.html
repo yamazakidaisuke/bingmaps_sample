@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Maps Type</title>
+    <style>body{padding:0;margin:0;background:#333;}h1{padding:0;margin:0;font-size:50%;color:white;}.mouse{font-size:50%;background: white;}</style>
+</head>
+<body>
+
+
+<!-- MAP[START] -->
+<h1>Select Maps Type
+    <select id="type">
+        <option value="road" selected>road</option>
+        <option value="aerial">aerial</option>
+        <option value="canvasDark">canvasDark</option>
+        <option value="canvasLight">canvasLight</option>
+        <option value="birdseye">birdseye</option>
+        <option value="grayscale">grayscale</option>
+        <option value="streetside">streetside</option>
+    </select>
+</h1>
+<div id="myMap" style='position:relative;width:100%;height:450px;'></div>
+<!-- MAP[END] -->
+
+
+<!-- [ MapTypeId ] https://msdn.microsoft.com/en-us/library/mt712700.aspx -->
+<script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=[***Your Map KEY***]' async defer></script>
+<script>
+    //***********************************************************************************
+    // BingMaps Init
+    //***********************************************************************************
+    let map, typeid;
+    function GetMap() {
+        map = new Microsoft.Maps.Map('#myMap', {
+            center: new Microsoft.Maps.Location(47.6149, -122.1941), //location set
+            mapTypeId: Microsoft.Maps.MapTypeId.load, //aerial,canvasDark,canvasLight,birdseye,grayscale,load,streetside
+            zoom: 16 //ZoomIn=20~Zoomout=1
+        });
+    }
+    //***********************************************************************************
+    //Select MapTypeID
+    //***********************************************************************************
+    document.getElementById("type").onchange = function(){
+        typeid = this.value; //selectboxの値を取得
+        if(typeid == "load") type = {mapTypeId: Microsoft.Maps.MapTypeId.load};
+        if(typeid == "aerial") type = {mapTypeId: Microsoft.Maps.MapTypeId.aerial};
+        if(typeid == "canvasDark") type = {mapTypeId: Microsoft.Maps.MapTypeId.canvasDark};
+        if(typeid == "canvasLight") type = {mapTypeId: Microsoft.Maps.MapTypeId.canvasLight};
+        if(typeid == "birdseye") type = {mapTypeId: Microsoft.Maps.MapTypeId.birdseye};
+        if(typeid == "grayscale") type = {mapTypeId: Microsoft.Maps.MapTypeId.grayscale};
+        if(typeid == "streetside") type = {mapTypeId: Microsoft.Maps.MapTypeId.streetside};
+        //add type
+        map.setView(type);
+    }
+</script>
+</body>
+</html>

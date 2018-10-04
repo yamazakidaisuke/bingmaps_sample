@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Birdseye</title>
+    <style>body{padding:0;margin:0;background:#333;}h1{padding:0;margin:0;font-size:50%;color:white;}.mouse{font-size:50%;background: white;}</style>
+</head>
+<body>
+
+<!-- MAP[START] -->
+<h1>Birdseye</h1>
+<div id="myMap" style='position:relative;width:100%;height:450px;'></div>
+<!-- MAP[END] -->
+
+
+<!-- [ MapTypeId ] https://msdn.microsoft.com/en-us/library/mt712700.aspx -->
+<script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=[***Your Map KEY***]' async defer></script>
+<script>
+function GetMap(){
+    let map;
+    let loc = new Microsoft.Maps.Location(47.6149, -122.1941); //Location center position
+    Microsoft.Maps.getIsBirdseyeAvailable(loc, Microsoft.Maps.Heading.North, function(isAvailable) {
+        map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+            center: loc,
+            zoom:5,
+            mapTypeId: isAvailable ? Microsoft.Maps.MapTypeId.birdseye : Microsoft.Maps.MapTypeId.aerial
+        });
+    });
+}
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Infobox:htmlContent</title>
+    <meta charset="utf-8">
+    <style>body{padding:0;margin:0;background:#333;}h1{padding:0;margin:0;font-size:50%;color:white;}</style>
+</head>
+<body>
+<h1>Infobox:htmlContent</h1>
+<div id="myMap" style='position:relative;width:100%;height:450px;'></div>
+
+
+<!-- [ infobox Object ] https://msdn.microsoft.com/en-us/library/mt712658.aspx -->
+<script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=[***Your Map KEY***]' async defer></script>
+<script>
+function GetMap() {
+    let map = new Microsoft.Maps.Map('#myMap', {
+        center: new Microsoft.Maps.Location(47.6149, -122.1941),
+        zoom: 15
+    });
+
+    //Get MAP Infomation
+    let center = map.getCenter();
+
+    //Infobox:html
+    let title = 'This is the title';
+    let description = '<img src="https://www.bingmapsportal.com/Content/images/poi_custom.png" align="left" style="margin-right:5px;"/>This is a description with custom html. <a href="http://bing.com/maps" target="_blank">Link</a>';
+    let infoboxTemplate = '<div class="customInfobox"><div class="title">{title}</div>{description}</div>';
+    //Infobox
+    let infobox = new Microsoft.Maps.Infobox(center, {
+        htmlContent: infoboxTemplate.replace('{title}', title).replace('{description}', description)
+    });
+    infobox.setMap(map); //Add infobox to Map
+}
+</script>
+<style>
+    /* Infobox Style */
+    .customInfobox {
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+        max-width: 200px;
+        border-radius: 10px;
+        padding: 10px;
+        font-size:12px;
+        pointer-events:auto !important;
+    }
+    .customInfobox .title {
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+</style>
+</body>
+</html>
